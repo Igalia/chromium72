@@ -68,6 +68,7 @@ InputPointer* WebOSPlatform::GetInputPointer() {
 
 void WebOSPlatform::SetInputRegion(unsigned handle,
                                    const std::vector<gfx::Rect>& region) {
+#if defined(OS_WEBOS)
   ozonewayland::WaylandDisplay* display =
       ozonewayland::WaylandDisplay::GetInstance();
   ozonewayland::WaylandWindow* window = display->GetWindow(handle);
@@ -75,9 +76,11 @@ void WebOSPlatform::SetInputRegion(unsigned handle,
   ozonewayland::WebosShellSurface* shellSurface =
       static_cast<ozonewayland::WebosShellSurface*>(window->ShellSurface());
   shellSurface->SetInputRegion(region);
+#endif  // defined(OS_WEBOS)
 }
 
 void WebOSPlatform::SetKeyMask(unsigned handle, WebOSKeyMask keyMask) {
+#if defined(OS_WEBOS)
   ozonewayland::WaylandDisplay* display =
       ozonewayland::WaylandDisplay::GetInstance();
   ozonewayland::WaylandWindow* window = display->GetWindow(handle);
@@ -85,6 +88,7 @@ void WebOSPlatform::SetKeyMask(unsigned handle, WebOSKeyMask keyMask) {
   ozonewayland::WebosShellSurface* shellSurface =
       static_cast<ozonewayland::WebosShellSurface*>(window->ShellSurface());
   shellSurface->SetGroupKeyMask(ToKeyMask(keyMask));
+#endif  // defined(OS_WEBOS)
 }
 
 }  // namespace webos

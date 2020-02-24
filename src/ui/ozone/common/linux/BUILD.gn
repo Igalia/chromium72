@@ -30,6 +30,7 @@ source_set("gbm") {
   deps = [
     ":drm",
     "//base:base",
+    "//third_party/libdrm",
     "//third_party/minigbm",
     "//ui/gfx:buffer_types",
     "//ui/gfx:memory_buffer",

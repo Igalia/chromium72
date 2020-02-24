@@ -17,11 +17,13 @@
 #ifndef OZONE_WAYLAND_SHELL_WEBOS_SHELL_SURFACE_H_
 #define OZONE_WAYLAND_SHELL_WEBOS_SHELL_SURFACE_H_
 
-#include "wayland-webos-shell-client-protocol.h"
-
 #include "ozone/platform/webos_constants.h"
 #include "ozone/wayland/shell/wl_shell_surface.h"
 #include "ui/views/widget/desktop_aura/neva/ui_constants.h"
+
+#if defined(OS_WEBOS)
+#include "wayland-webos-shell-client-protocol.h"
+#endif
 
 namespace ozonewayland {
 
@@ -42,8 +44,10 @@ class WebosShellSurface : public WLShellSurface {
   void Maximize() override;
   void Minimize() override;
   bool IsMinimized() const override;
+#if defined(OS_WEBOS)
   void SetGroupKeyMask(ui::KeyMask key_mask) override;
   void SetKeyMask(ui::KeyMask key_mask, bool set) override;
+#endif
   void SetInputRegion(const std::vector<gfx::Rect>& region) override;
   void SetWindowProperty(const std::string& name,
                          const std::string& value) override;

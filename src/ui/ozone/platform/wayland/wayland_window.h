@@ -31,9 +31,7 @@ class XDGSurfaceWrapper;
 
 struct PlatformWindowInitProperties;
 
-namespace {
 class XDGShellObjectFactory;
-}  // namespace
 
 class WaylandWindow : public PlatformWindow,
                       public PlatformEventDispatcher,
@@ -102,6 +100,7 @@ class WaylandWindow : public PlatformWindow,
   void ReleaseCapture() override;
   bool HasCapture() const override;
   void ToggleFullscreen() override;
+  void ToggleFullscreenWithSize(const gfx::Size& size) override;
   void Maximize() override;
   void Minimize() override;
   void Restore() override;

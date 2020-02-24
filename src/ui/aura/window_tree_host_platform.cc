@@ -159,7 +159,7 @@ void WindowTreeHostPlatform::ReleaseCapture() {
 
 void WindowTreeHostPlatform::SetWindowProperty(const std::string& name,
                                                const std::string& value) {
-#if defined(USE_OZONE)
+#if defined(USE_OZONE) && defined(OZONE_PLATFORM_WAYLAND_EXTERNAL)
   platform_window_->SetWindowProperty(name, value);
 #endif
 }
@@ -335,13 +335,13 @@ void WindowTreeHostPlatform::OnActivationChanged(bool active) {
 }
 
 void WindowTreeHostPlatform::OnShowIme() {
-#if defined(USE_OZONE)
+#if defined(USE_OZONE) && defined(OZONE_PLATFORM_WAYLAND_EXTERNAL)
   platform_window_->ShowInputPanel();
 #endif
 }
 
 void WindowTreeHostPlatform::OnHideIme(ui::ImeHiddenType hidden_type) {
-#if defined(USE_OZONE)
+#if defined(USE_OZONE) && defined(OZONE_PLATFORM_WAYLAND_EXTERNAL)
   platform_window_->HideInputPanel(hidden_type);
 #endif
 }
@@ -349,7 +349,7 @@ void WindowTreeHostPlatform::OnHideIme(ui::ImeHiddenType hidden_type) {
 void WindowTreeHostPlatform::OnTextInputTypeChanged(
     ui::TextInputType text_input_type,
     int text_input_flags) {
-#if defined(USE_OZONE)
+#if defined(USE_OZONE) && defined(OZONE_PLATFORM_WAYLAND_EXTERNAL)
   if (text_input_type != ui::TEXT_INPUT_TYPE_NONE)
     platform_window_->SetInputContentType(text_input_type, text_input_flags);
 #endif
@@ -360,14 +360,14 @@ void WindowTreeHostPlatform::OnTextInputTypeChanged(
 void WindowTreeHostPlatform::SetSurroundingText(const std::string& text,
                                                 size_t cursor_position,
                                                 size_t anchor_position) {
-#if defined(USE_OZONE)
+#if defined(USE_OZONE) && defined(OZONE_PLATFORM_WAYLAND_EXTERNAL)
   platform_window_->SetSurroundingText(text, cursor_position, anchor_position);
 #endif
 }
 ///@}
 
 void WindowTreeHostPlatform::ToggleFullscreen() {
-#if defined(USE_OZONE)
+#if defined(USE_OZONE) && defined(OZONE_PLATFORM_WAYLAND_EXTERNAL)
   platform_window_->ToggleFullscreen();
 #endif
 }

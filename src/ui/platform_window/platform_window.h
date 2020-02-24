@@ -10,6 +10,7 @@
 #include "base/strings/string16.h"
 #include "ui/base/class_property.h"
 #include "ui/base/cursor/cursor.h"
+#include "ui/gfx/geometry/size.h"
 #include "ui/platform_window/platform_window_delegate.h"
 
 // Added for external ozone wayland port

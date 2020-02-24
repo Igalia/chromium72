@@ -25,8 +25,6 @@
 
 namespace ui {
 
-namespace {
-
 // Factory, which decides which version type of xdg object to build.
 class XDGShellObjectFactory {
  public:
@@ -67,8 +65,6 @@ gfx::Rect TranslateBoundsToParentCoordinates(const gfx::Rect& child_bounds,
   int y = child_bounds.y() - parent_bounds.y();
   return gfx::Rect(gfx::Point(x, y), child_bounds.size());
 }
-
-}  // namespace
 
 WaylandWindow::WaylandWindow(PlatformWindowDelegate* delegate,
                              WaylandConnection* connection)
@@ -354,6 +350,14 @@ void WaylandWindow::ToggleFullscreen() {
   }
 
   connection_->ScheduleFlush();
+}
+
+void WaylandWindow::ToggleFullscreenWithSize(const gfx::Size& size) {
+  DCHECK(xdg_surface_);
+
+  ToggleFullscreen();
+
+  NOTIMPLEMENTED();
 }
 
 void WaylandWindow::Maximize() {

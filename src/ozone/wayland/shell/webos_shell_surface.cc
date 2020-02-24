@@ -110,6 +110,7 @@ bool WebosShellSurface::IsMinimized() const {
   return minimized_;
 }
 
+#if defined(OS_WEBOS)
 void WebosShellSurface::SetGroupKeyMask(ui::KeyMask key_mask) {
   WebOSKeyMasks native_key_mask = static_cast<WebOSKeyMasks>(key_mask);
 
@@ -132,6 +133,7 @@ void WebosShellSurface::SetKeyMask(ui::KeyMask key_mask, bool set) {
   webos_key_masks_ = webos_key_masks;
   wl_webos_shell_surface_set_key_mask(webos_shell_surface_, webos_key_masks);
 }
+#endif  // defined(OS_WEBOS)
 
 void WebosShellSurface::SetInputRegion(const std::vector<gfx::Rect>& region) {
   wl_compositor *wlcompositor = WaylandDisplay::GetInstance()->GetCompositor();
