@@ -15,8 +15,10 @@ source_set("drm") {
 
   deps = [
     "//base:base",
-    "//build/config/linux/libdrm",
     "//ui/gfx:buffer_types",
+  ]
+  public_deps = [
+    "//build/config/linux/libdrm",
   ]
 }
 
@@ -30,7 +32,6 @@ source_set("gbm") {
   deps = [
     ":drm",
     "//base:base",
-    "//third_party/libdrm",
     "//third_party/minigbm",
     "//ui/gfx:buffer_types",
     "//ui/gfx:memory_buffer",
