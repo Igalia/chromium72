@@ -25,8 +25,9 @@ NetworkErrorPageControllerImpl::NetworkErrorPageControllerImpl() {}
 NetworkErrorPageControllerImpl::~NetworkErrorPageControllerImpl() {}
 
 void NetworkErrorPageControllerImpl::Connect() {
-  delegate_ =
-      PlatformFactory::Get()->CreateNetworkErrorPageControllerDelegate();
+// TODO enable pal_service?
+//  delegate_ =
+//      PlatformFactory::Get()->CreateNetworkErrorPageControllerDelegate();
 }
 
 void NetworkErrorPageControllerImpl::AddBinding(
