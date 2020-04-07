@@ -110,8 +110,6 @@ struct QUIC_EXPORT_PRIVATE QuicFrame {
 
 static_assert(sizeof(QuicFrame) <= 24,
               "Frames larger than 24 bytes should be referenced by pointer.");
-static_assert(offsetof(QuicStreamFrame, type) == offsetof(QuicFrame, type),
-              "Offset of |type| must match in QuicFrame and QuicStreamFrame");
 
 // A inline size of 1 is chosen to optimize the typical use case of
 // 1-stream-frame in QuicTransmissionInfo.retransmittable_frames.
