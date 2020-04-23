@@ -54,7 +54,7 @@ void AtExitManager::RegisterCallback(AtExitCallbackType func, void* param) {
 // static
 void AtExitManager::RegisterTask(base::Closure task) {
   if (!g_top_manager) {
-    NOTREACHED() << "Tried to RegisterCallback without an AtExitManager";
+    LOG(ERROR) << "Tried to RegisterCallback without an AtExitManager";
     return;
   }
 

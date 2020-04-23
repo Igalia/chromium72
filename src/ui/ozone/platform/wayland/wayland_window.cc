@@ -123,7 +123,13 @@ bool WaylandWindow::Initialize(PlatformWindowInitProperties properties) {
       // TODO(msisov, jkim): Handle notification windows, which are marked
       // as popup windows as well. Those are the windows that do not have
       // parents and pop up when the browser receives a notification.
-      CreateXdgPopup();
+      if (parent_window_) {
+        CreateXdgPopup();
+      } else {
+        LOG(WARNING) << "No parent window is set; cannot create a popup.  "
+                     << "Creating the main surface instead.";
+        CreateXdgSurface();
+      }
       break;
     case ui::PlatformWindowType::kTooltip:
       // Tooltips subsurfaces are created on demand, upon ::Show calls.
