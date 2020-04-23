@@ -192,6 +192,8 @@ class WaylandWindow : public PlatformWindow,
 
   bool is_tooltip_ = false;
 
+  bool accelerated_widget_acknowledged_ = false;
+
   DISALLOW_COPY_AND_ASSIGN(WaylandWindow);
 };
 

@@ -144,7 +144,6 @@ bool WaylandWindow::Initialize(PlatformWindowInitProperties properties) {
 
   connection_->AddWindow(surface_.id(), this);
   PlatformEventSource::GetInstance()->AddPlatformEventDispatcher(this);
-  delegate_->OnAcceleratedWidgetAvailable(surface_.id());
 
   return true;
 }
@@ -567,6 +566,11 @@ void WaylandWindow::HandleSurfaceConfigure(int32_t width,
     delegate_->OnActivationChanged(is_active_);
 
   MaybeTriggerPendingStateChange();
+
+  if (!accelerated_widget_acknowledged_) {
+    delegate_->OnAcceleratedWidgetAvailable(surface_.id());
+    accelerated_widget_acknowledged_ = true;
+  }
 }
 
 void WaylandWindow::OnCloseRequest() {
