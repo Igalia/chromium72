@@ -7,6 +7,8 @@
 
 #include <map>
 
+#include <ivi-application-client-protocol.h>
+
 #include "base/files/file.h"
 #include "base/message_loop/message_pump_libevent.h"
 #include "mojo/public/cpp/bindings/binding.h"
@@ -74,6 +76,7 @@ class WaylandConnection : public PlatformEventSource,
   wl_shm* shm() { return shm_.get(); }
   xdg_shell* shell() const { return shell_.get(); }
   zxdg_shell_v6* shell_v6() const { return shell_v6_.get(); }
+  ivi_application* ivi_shell() const { return ivi_application_; }
   wl_seat* seat() { return seat_.get(); }
   wl_data_device* data_device() { return data_device_->data_device(); }
   wp_presentation* presentation() const { return presentation_.get(); }
@@ -199,6 +202,8 @@ class WaylandConnection : public PlatformEventSource,
   wl::Object<wl_shm> shm_;
   wl::Object<xdg_shell> shell_;
   wl::Object<zxdg_shell_v6> shell_v6_;
+  // TODO(msisov): use wl::Object.
+  ivi_application* ivi_application_ = nullptr;
   wl::Object<wp_presentation> presentation_;
   wl::Object<zwp_text_input_manager_v1> text_input_manager_v1_;
 
