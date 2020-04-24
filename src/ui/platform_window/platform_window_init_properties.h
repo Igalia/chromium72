@@ -44,6 +44,9 @@ struct PlatformWindowInitProperties {
   // used to find a parent from internal list of PlatformWindows.
   gfx::AcceleratedWidget parent_widget = gfx::kNullAcceleratedWidget;
 
+  // Surface id, which is used when ivi shell is used.
+  int surface_id = 0;
+
 #if defined(OS_FUCHSIA)
   zx::eventpair view_token;
 #endif
