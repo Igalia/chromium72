@@ -199,6 +199,10 @@ WindowTreeHostPlatform::GetKeyboardLayoutMap() {
 #endif
 }
 
+void WindowTreeHostPlatform::SetWindowSurfaceId(int surface_id) {
+  window_->SetSurfaceId(surface_id);
+}
+
 void WindowTreeHostPlatform::SetCursorNative(gfx::NativeCursor cursor) {
   if (cursor == current_cursor_)
     return;

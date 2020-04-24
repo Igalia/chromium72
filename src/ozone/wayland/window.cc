@@ -36,11 +36,12 @@
 
 namespace ozonewayland {
 
-WaylandWindow::WaylandWindow(unsigned handle)
+WaylandWindow::WaylandWindow(unsigned handle, int surface_id)
     : shell_surface_(NULL),
       window_(NULL),
       type_(None),
       handle_(handle),
+      surface_id_(surface_id),
 #if defined(OS_WEBOS)
       surface_group_(0),
       is_surface_group_client_(false),
@@ -73,8 +74,8 @@ void WaylandWindow::SetShellAttributes(ShellType type) {
 
   if (!shell_surface_) {
     shell_surface_ =
-        WaylandDisplay::GetInstance()->GetShell()->CreateShellSurface(this,
-                                                                      type);
+        WaylandDisplay::GetInstance()->GetShell()->CreateShellSurface(
+            this, type, surface_id_);
   }
 
   type_ = type;
@@ -101,8 +102,8 @@ void WaylandWindow::SetShellAttributes(ShellType type,
 
   if (!shell_surface_) {
     shell_surface_ =
-        WaylandDisplay::GetInstance()->GetShell()->CreateShellSurface(this,
-                                                                      type);
+        WaylandDisplay::GetInstance()->GetShell()->CreateShellSurface(
+            this, type, surface_id_);
   }
 
   type_ = type;

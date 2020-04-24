@@ -1442,4 +1442,8 @@ void DesktopWindowTreeHostOzone::OnWindowHostStateAboutToChange(ui::WidgetState 
 #endif
 }
 
+void DesktopWindowTreeHostOzone::SetWindowSurfaceId(int surface_id) {
+  platform_window_->SetSurfaceId(surface_id);
+}
+
 }  // namespace views

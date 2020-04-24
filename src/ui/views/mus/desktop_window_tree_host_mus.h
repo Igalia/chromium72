@@ -124,6 +124,7 @@ class VIEWS_MUS_EXPORT DesktopWindowTreeHostMus
   void SetVisibleOnAllWorkspaces(bool always_visible) override;
   bool IsVisibleOnAllWorkspaces() const override;
   bool SetWindowTitle(const base::string16& title) override;
+  void SetWindowSurfaceId(int surface_id) override {}
   void ClearNativeFocus() override;
   Widget::MoveLoopResult RunMoveLoop(
       const gfx::Vector2d& drag_offset,

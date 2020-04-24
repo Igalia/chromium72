@@ -91,6 +91,7 @@ class OzoneWaylandWindow : public PlatformWindow,
   gfx::Rect GetRestoredBoundsInPixels() const override;
   void SetWindowProperty(const std::string& name,
                          const std::string& value) override;
+  void SetSurfaceId(int surface_id) override;
   void ResetCustomCursor() override;
   void CreateGroup(const WindowGroupConfiguration&) override;
   void AttachToGroup(const std::string& group,
@@ -161,6 +162,7 @@ class OzoneWaylandWindow : public PlatformWindow,
       app_runtime::CustomCursorType::kNotUse;
   bool allowed_cursor_overriding_ = false;
   base::WeakPtrFactory<OzoneWaylandWindow> weak_factory_;
+  int surface_id_;
 
   DISALLOW_COPY_AND_ASSIGN(OzoneWaylandWindow);
 };
