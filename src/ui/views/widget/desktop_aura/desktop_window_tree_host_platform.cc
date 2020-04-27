@@ -44,7 +44,7 @@ ui::PlatformWindowInitProperties ConvertWidgetInitParamsToInitProperties(
       break;
 
     default:
-      properties.type = ui::PlatformWindowType::kPopup;
+      properties.type = ui::PlatformWindowType::kWindow;
       break;
   }
 
