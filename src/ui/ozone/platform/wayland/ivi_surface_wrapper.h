@@ -43,6 +43,7 @@ class IviSurfaceWrapper : public XDGSurfaceWrapper {
                               int32_t height);
 
   WaylandWindow* wayland_window_;
+  WaylandConnection* connection_;
 
   // TODO(msisov): use wl::Object.
   ivi_surface* ivi_surface_ = nullptr;
