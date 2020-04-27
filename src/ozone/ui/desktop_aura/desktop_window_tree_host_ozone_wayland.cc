@@ -85,6 +85,7 @@ DesktopWindowTreeHostOzone::DesktopWindowTreeHostOzone(
       previous_maximize_bounds_(0, 0, 0, 0),
       window_(0),
       title_(base::string16()),
+      pending_surface_id_(0),
       drag_drop_client_(NULL),
       native_widget_delegate_(native_widget_delegate),
       content_window_(NULL),
@@ -1097,7 +1098,8 @@ void DesktopWindowTreeHostOzone::InitOzoneWindow(
   platform_window_ = ui::OzonePlatform::GetInstance()->CreatePlatformWindow(
       this, std::move(properties));
   DCHECK(window_);
-  platform_window_->SetSurfaceId(params.surface_id);
+  if (pending_surface_id_)
+    platform_window_->SetSurfaceId(pending_surface_id_);
   // Maintain parent child relation as done in X11 version.
   // If we have a parent, record the parent/child relationship. We use this
   // data during destruction to make sure that when we try to close a parent
@@ -1444,7 +1446,11 @@ void DesktopWindowTreeHostOzone::OnWindowHostStateAboutToChange(ui::WidgetState 
 }
 
 void DesktopWindowTreeHostOzone::SetWindowSurfaceId(int surface_id) {
-  platform_window_->SetSurfaceId(surface_id);
+  if (platform_window_) {
+    platform_window_->SetSurfaceId(surface_id);
+  } else {
+    pending_surface_id_ = surface_id;
+  }
 }
 
 }  // namespace views
