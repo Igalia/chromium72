@@ -91,7 +91,7 @@ std::unique_ptr<base::MessagePump> CreateMainThreadMessagePump() {
   // needs to be backed by a Foundation-level loop to process NSTimers. See
   // http://crbug.com/306348#c24 for details.
   return std::make_unique<base::MessagePumpNSRunLoop>();
-#elif defined(OS_WEBOS) && defined(USE_INJECTIONS)
+#elif defined(USE_CBE) && defined(USE_INJECTIONS)
   // The main message loop of the renderer services for WEBOS should be UI (luna
   // bus require glib message pump).
   return base::MessageLoop::CreateMessagePumpForType(
