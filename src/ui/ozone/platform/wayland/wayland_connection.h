@@ -32,6 +32,10 @@ class WaylandBufferManager;
 class WaylandOutputManager;
 class WaylandWindow;
 
+#if defined(USE_GLIB)
+class WaylandFdWatcherGlib;
+#endif
+
 class WaylandConnection : public PlatformEventSource,
                           public ClipboardDelegate,
                           public ozone::mojom::WaylandConnection,
@@ -157,9 +161,16 @@ class WaylandConnection : public PlatformEventSource,
   // not delivered.
   void ResetPointerFlags();
 
+  // base::MessagePumpLibevent::FdWatcher
+  // TODO(msisov): this is to call OnFileCanReadWithoutBlocking.
+  // make something better here.
+  void OnFileCanReadWithoutBlocking(int fd) override;
+
  private:
   // WaylandInputMethodContextFactory needs access to DispatchUiEvent
   friend class WaylandInputMethodContextFactory;
+
+  friend class WaylandFdWatcherGlib;
 
   void Flush();
   void DispatchUiEvent(Event* event);
@@ -168,7 +179,6 @@ class WaylandConnection : public PlatformEventSource,
   void OnDispatcherListChanged() override;
 
   // base::MessagePumpLibevent::FdWatcher
-  void OnFileCanReadWithoutBlocking(int fd) override;
   void OnFileCanWriteWithoutBlocking(int fd) override;
 
   // Terminates the GPU process on invalid data received
@@ -222,6 +232,10 @@ class WaylandConnection : public PlatformEventSource,
   bool scheduled_flush_ = false;
   bool watching_ = false;
   base::MessagePumpLibevent::FdWatchController controller_;
+
+#if defined(USE_GLIB)
+  std::unique_ptr<WaylandFdWatcherGlib> wayland_fd_watcher_glib_;
+#endif
 
   uint32_t serial_ = 0;
 

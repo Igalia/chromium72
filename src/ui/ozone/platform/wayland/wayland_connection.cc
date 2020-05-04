@@ -21,6 +21,10 @@
 #include "ui/ozone/platform/wayland/wayland_output_manager.h"
 #include "ui/ozone/platform/wayland/wayland_window.h"
 
+#if defined(USE_GLIB)
+#include "ui/ozone/platform/wayland/wayland_fd_watcher_glib.h"
+#endif
+
 static_assert(XDG_SHELL_VERSION_CURRENT == 5, "Unsupported xdg-shell version");
 
 namespace ui {
@@ -98,11 +102,19 @@ bool WaylandConnection::StartProcessingEvents() {
   DCHECK(display_);
   wl_display_flush(display_.get());
 
+#if defined(USE_GLIB)
+  LOG(INFO) << "StartProcessingEvents - glib";
+  wayland_fd_watcher_glib_ = std::make_unique<WaylandFdWatcherGlib>(this);
+#else
+  LOG(INFO) << "StartProcessingEvents - glib";
   DCHECK(base::MessageLoopCurrentForUI::IsSet());
   if (!base::MessageLoopCurrentForUI::Get()->WatchFileDescriptor(
           wl_display_get_fd(display_.get()), true,
-          base::MessagePumpLibevent::WATCH_READ, &controller_, this))
+          base::MessagePumpLibevent::WATCH_READ, &controller_, this)) {
+    LOG(ERROR) << "Cannot watch the libevent message pump!";
     return false;
+  }
+#endif
 
   watching_ = true;
   return true;
