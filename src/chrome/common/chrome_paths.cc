@@ -401,9 +401,10 @@ bool PathProvider(int key, base::FilePath* result) {
 #if defined(USE_CBE)
       if (!base::PathService::Get(base::DIR_EXE, &cur))
         return false;
-#endif  // defined(USE_CBE)
+#else
       if (!base::PathService::Get(base::DIR_MODULE, &cur))
         return false;
+#endif  // defined(USE_CBE)
 #endif
       cur = cur.Append(FILE_PATH_LITERAL("resources.pak"));
       break;
